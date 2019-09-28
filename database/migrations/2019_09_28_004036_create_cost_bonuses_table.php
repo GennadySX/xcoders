@@ -15,7 +15,7 @@ class CreateCostBonusesTable extends Migration
     {
         Schema::create('cost_bonuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('costcard_id')->unsigned();
+            $table->integer('card_id')->unsigned();
             $table->string('value');
             $table->timestamps();
         });

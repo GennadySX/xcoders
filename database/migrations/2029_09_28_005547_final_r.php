@@ -37,6 +37,11 @@ class FinalR extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
         });
 
+        Schema::table('cost_bonuses', function (Blueprint $table) {
+            $table->foreign('card_id')->references('id')->on('cost_cards')
+                ->onDelete('cascade')->onUpdate('cascade');
+        });
+
         Schema::table('comments', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');

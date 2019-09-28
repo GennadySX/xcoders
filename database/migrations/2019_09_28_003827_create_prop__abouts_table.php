@@ -18,7 +18,7 @@ class CreatePropAboutsTable extends Migration
             $table->integer('about_id')->unsigned();
             $table->enum('type', ['text','image', 'video'])->default('text');
             $table->longText('ValText')->nullable();
-            $table->longText('path');
+            $table->longText('value');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class PropAboutController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Prop_About::all());
     }
 
     /**

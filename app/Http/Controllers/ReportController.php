@@ -15,7 +15,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Report::all());
     }
 
     /**

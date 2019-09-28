@@ -15,14 +15,23 @@ class CreateRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('state');
+            $table->string('country_en');
+            $table->string('region_en');
+            $table->string('city_en');
+            $table->string('country');
+            $table->string('region');
             $table->string('city');
+            $table->string('lat');
+            $table->string('lang');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     *
+     *
      *
      * @return void
      */

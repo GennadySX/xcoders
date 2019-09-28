@@ -16,6 +16,7 @@ class CostBonusController extends Controller
     public function index()
     {
         //
+        return response()->json(CostBonus::all());
     }
 
     /**

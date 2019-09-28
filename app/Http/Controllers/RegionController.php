@@ -15,7 +15,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Region::all());
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -15,7 +16,10 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
+
+          if (Auth::user()->roles()->first()->name == 'admin')
+            return response()->json(Comments::with('user', 'item')->get());
+
     }
 
     /**
@@ -23,9 +27,14 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $req, Comments $comment)
     {
-        //
+     if ($req && count($req) > 0)
+         $comment->item_id = $req->item_id;
+         $comment->user_id = Auth::id();
+         $comment->text = $req->text;
+         if ($comment->save()) return response()->json(['id'=>$comment->id], 201);
+         return response()->json('error comment cant create, check text field before send it', 204);
     }
 
     /**
@@ -79,8 +88,9 @@ class CommentsController extends Controller
      * @param  \App\Comments  $comments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comments $comments)
+    public function destroy($id, Comments $comments)
     {
-        //
+        if ($comments::destroy($id)) return response()->json('comment removed', 200);
+        return response()->json('error delete comment: '.$id, 401);
     }
 }

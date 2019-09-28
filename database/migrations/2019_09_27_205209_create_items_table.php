@@ -18,7 +18,8 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->integer('user_id')->unsigned();
             $table->integer('region_id')->unsigned();
-            $table->string('path')->nullable();
+            $table->string('path')->default('/uploads/item/');
+            $table->string('filename')->nullable();
             $table->string('goal')->default("0");
             $table->string('achieve_cost')->nullable();
             $table->date('deadline')->nullable();
