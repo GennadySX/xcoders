@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Regions extends Migration
+class CreatePropAboutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class Regions extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('prop_abouts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->integer('count_abonents');
+            $table->integer('about_id')->unsigned();
+            $table->enum('type', ['text','image', 'video'])->default('text');
+            $table->longText('ValText')->nullable();
+            $table->longText('path');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class Regions extends Migration
      */
     public function down()
     {
-        Schema::drop('regions');
+        Schema::dropIfExists('prop__abouts');
     }
 }
