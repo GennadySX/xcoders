@@ -60,6 +60,15 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth:api'], function ()
         Route::post('/del/{id}', 'CommentController@destroy');
         Route::post('/update', 'CommentController@update');
     });
+    Route::group(['prefix' => 'prop'], function () {
+        Route::get('/', 'PropAboutController@index');
+        Route::get('/by/{id}', 'PropAboutController@byId');
+        Route::post('/create', 'PropAboutController@create');
+        Route::post('/del/{id}', 'PropAboutController@destroy');
+        Route::post('/update', 'PropAboutController@update');
+    });
+
+
     Route::group(['prefix' => 'report'], function () {
         Route::get('/', 'ReportController@index');
         Route::get('/by/{id}', 'ReportController@byId');

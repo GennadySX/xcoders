@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
+
+    public function check($role)
+    {
+        if (Auth::user()->hasRole($role)) return true;
+        return false;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +24,7 @@ class CommentsController extends Controller
     public function index()
     {
 
-          if (Auth::user()->roles()->first()->name == 'admin')
-            return response()->json(Comments::with('user', 'item')->get());
+                return response()->json(Comments::with('user', 'item')->get());
 
     }
 

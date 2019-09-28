@@ -20,7 +20,7 @@ class ItemSeeder extends Seeder
         $item->user_id = 1;
         $item->region_id = 1;
         $item->achieve_cost = '150000';
-        $item->img = 'default.jpg';
+        $item->filename = 'default.jpg';
         $item->goal = "120";
         $item->deadline = "2012-09-05 22:33";
         $item->save();

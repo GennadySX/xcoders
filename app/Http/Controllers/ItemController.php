@@ -25,6 +25,25 @@ class ItemController extends Controller
         if (isset($it) && isset($it->id)) return response()->json($it,200,[],JSON_UNESCAPED_SLASHES);
         return response()->json('item not found');
     }
+    public function create(Request $request, Item $item)
+    {
+        if ($request) {
+            $item->name = $request->name;
+            $item->user_id = Auth::id();
+            $item->region_id = $request->region_id;
+            if ($request->hasFile('path')) {
+                $bkg = $request->file('path');
+                $filename = time().'.'.$bkg->getClientOriginalName();
+                Image::make($bkg)->save(public_path('/uploads/item/'.$filename));
+                $item->img = $filename;
+            }
+            $item->goal = $request->goal;
+            $item->achieve_cost = $request->achieve_cost;
+            $item->deadline = $request->deadline;
+            if ($item->save()) return response()->json(['id'=>$item->id ], 200);
+            return response()->json('error create');
+        } else return response()->json('error request data');
+    }
     public function update(Request $req,Item $item)
     {
         if (Auth::user()->roles('admin'))
@@ -45,25 +64,6 @@ class ItemController extends Controller
                 return response()->json('updated');
             }
         return response()->json('failed data');
-    }
-    public function create(Request $request, Item $item)
-    {
-        if ($request) {
-        $item->name = $request->name;
-        $item->user_id = Auth::id();
-        $item->region_id = $request->region_id;
-            if ($request->hasFile('path')) {
-                $bkg = $request->file('path');
-                $filename = time().'.'.$bkg->getClientOriginalName();
-                Image::make($bkg)->save(public_path('/uploads/item/'.$filename));
-                $item->img = $filename;
-            }
-        $item->goal = $request->goal;
-        $item->achieve_cost = $request->achieve_cost;
-        $item->deadline = $request->deadline;
-        if ($item->save()) return response()->json('success');
-        return response()->json('error create');
-        } else return response()->json('error request data');
     }
     public function destroy($id, Item $item)
     {
