@@ -20,9 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['namespace' => 'Api'], function () {
-    Route::group(['namespace' => 'Auth'], function () {
         Route::post('login', 'UserController@login');
         Route::post('register', 'UserController@register');
         Route::post('logout', 'UserController@logout');
-    });
+
 });
